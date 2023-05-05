@@ -1,30 +1,28 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <Header></Header>
+  <router-view style="height: 100px"></router-view>
+  <Footer v-show="$route.meta.footerShow"></Footer>
+  <!-- <button @click="aaa">dl</button> -->
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import Header from '@/components/Header/index.vue'
+import Footer from '@/components/Footer/index.vue'
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    aaa() {
+      console.log(this.$route)
+      console.log(this.$router)
     }
+  },
+  components: {
+    Header,
+    Footer
   }
 }
-</style>
+</script>
+
+<style lang="less"></style>
