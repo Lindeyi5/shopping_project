@@ -1,8 +1,7 @@
 <template>
   <Header></Header>
-  <router-view style="height: 100px"></router-view>
+  <router-view></router-view>
   <Footer v-show="$route.meta.footerShow"></Footer>
-  <!-- <button @click="aaa">dl</button> -->
 </template>
 
 <script>
@@ -12,12 +11,10 @@ export default {
   data() {
     return {}
   },
-  methods: {
-    aaa() {
-      console.log(this.$route)
-      console.log(this.$router)
-    }
+  mounted() {
+    this.$store.dispatch('categroyList')
   },
+  methods: {},
   components: {
     Header,
     Footer
@@ -25,4 +22,10 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+// body {
+//   overflow: hidden;
+//   padding-right: 0 !important;
+//   margin-right: 0 !important;
+// }
+</style>

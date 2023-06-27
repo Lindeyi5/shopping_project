@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="Promise2.js"></script>
+</head>
+<body>
+  <!-- <script>
+    function aaa() {
+  try
+  {
+    throw new Error('错咯1')
+  } catch (err){
+    console.log(err)
+  }
+}
+
+aaa()
+  </script> -->
+</body>
+<!-- <script>
+  const p=new Promise((resolve,reject)=>{
+setTimeout(()=>{
+  const t=(Date.now())
+  if(t%2==0){
+    resolve('成功'+t)
+  }else{
+    reject('失败'+t)
+  }
+},200)
+  })
+  setTimeout(() => {
+    p.then((value)=>{
+    console.log('成功咯'+value)
+  },(reason)=>{
+    console.log('失败咯'+reason)
+  })
+  }, 2000);
+
+</script> -->
+
+<!-- <script>
+  new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      reject('失败1')
+      console.log(222)   
+    },2000)
+    console.log(11)
+    // resolve('成功')
+    
+    // throw new Error('错误')
+  }).then((value)=>{
+    console.log(value+'成功')
+  }).catch((reason
+  )=>{
+    console.log(reason)
+  })
+console.log(333)
+  // const p1=Promise.resolve(1111)
+  // console.dir(p1)
+  // const p2=Promise.resolve(222)
+  // console.dir(Promise)
+  // p2.then((val)=>{console.log(val)})
+  // p1.then((val)=>{console.log(val)})
+  // Promise.all([p1,p2]).then((val)=>{console.log(val)},(re)=>{console.log(re)})
+</script> -->
+
+<!-- <script>
+
+new Promise((resolve,reject)=>{
+      reject('失败1')
+    // resolve('成功
+    console.log((12705-181*10)/25/30)
+    console.log(Promise.resolve(9090))
+    console.log(new Promise.resolve(90920))
+  })
+  .then((value)=>{
+    console.log(value+'成功1')
+  },(reason)=>{
+    console.log(reason+'失败1')
+    // return 666
+    return Promise.resolve(666)
+  })
+  .then((value)=>{
+    console.log(value+'成功2')
+    return new Promise((res,rej)=>{
+setTimeout(() => {
+  console.log('定时器里的')
+  res(11)
+}, 3000);
+    })
+  },(reason)=>{
+    console.log(reason+'失败2')
+  })
+  .then((value)=>{
+    console.log(999)
+    console.log(value+'成功3')
+  },(reason)=>{
+    console.log(reason+'失败3')
+  })
+</script> -->
+<!-- <script>
+const aaa=new Promise2((resolve,reject)=>{
+setTimeout(()=>{
+    // resolve('qq')
+    reject(66)
+    // throw 4
+})
+}).then(
+  value=>{
+console.log('cg'+value)
+  },
+  reason=>{
+  console.log('sb'+reason)
+  }
+)
+aaa.then(
+  value=>{
+console.log('cg1'+value)
+  },
+  reason=>{
+  console.log('sb1'+reason)
+  }
+)
+// console.log(aaa)
+
+</script> -->
+
+<script>
+  // function abc(){
+  //   var b=1
+  //   function bcd(){
+  //     console.log(b)
+  //   }
+  //   bcd()
+  // }
+  // abc()
+
+// function f1(){
+
+// 　　　　var n=999;
+
+// 　　　　nAdd=function(){
+
+//               alert(n+=1);  
+
+//           }
+
+// 　　　　function f2(){
+//           alert(n);
+//           }
+
+// 　　　　return f2;
+
+// 　　}
+
+// 　　var result=f1();
+
+// 　　result(); //999
+
+// 　　nAdd();//1000
+
+// 　　result(); //1001
+
+      //   let arr1 = [1, 42, [3, 4]]
+      //   let arr1Copy = arr1.slice()
+      //   arr1Copy[0] = 10
+      //   arr1Copy[2][0] = 100
+      //   console.log(arr1) // [1, 42, [100, 4]]
+      //   console.log(arr1Copy) // [10, 42, [100, 4]]
+
+      // // var c=_.cloneDeep(/arr1)
+      // console.log(c)
+    </script>
+
+<!-- <script>
+  var ss=Array instanceof Object
+  console.log(ss)
+  var kds=new Array([1,2,3])
+  console.dir(kds)
+  console.dir(Array)
+  console.dir(Object)
+</script> -->
+<script>
+  a=['1:hausd']
+  var ss=a.indexOf('1')
+  console.log(ss)
+</script>
+</html>

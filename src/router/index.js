@@ -1,52 +1,61 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import Home from "@/views/Home/Home.vue"
-import Login from "@/views/Login/Login.vue"
-import Register from "@/views/Register/Register.vue"
-import Search from "@/views/Search/Search.vue"
-
-const routes = [
-  {
-    path: '/',
-    redirect:'/home'
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: Home,
-    meta:{footerShow:true}
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: Login,
-    meta:{footerShow:false}
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: Register,
-    meta:{footerShow:false}
-  },
-  {
-    path: '/search/:keyword?',
-    name: 'search',
-    component: Search,
-    meta:{footerShow:true}
-  },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
-]
+import routes from './routers'
+import store from '@/store'
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return {top:0}
+  }
 })
 
+router.beforeEach(async (to, from, next) =>{
+  // console.log(store._state.data.user.token)
+  let token = store._state.data.user.token
+  let name = store._state.data.user.userInfo.name
+  // console.log(name)
+  // 1.登录{1.不能去往login  2.去其他，先看name，有就跳，无就请求数据}
+  // 2.未登录{}
+  if (token) {
+    console.log(1)
+    if (to.path == '/login') {
+      if (!name) {
+        next()
+      } else {
+        next('/home')
+      }    
+    } else {
+      if (name) {
+        next()
+      } else {
+        try {
+          await store.dispatch('reqUserInfo')
+          next()
+        } catch (error) {
+          await store.dispatch('Logout')
+          next('/login')
+        }
+      }   
+    }
+  }
+  else {
+    //未登录，不能去shopcart/center/pay/addcartsuccess/trade
+    // if(to.path)
+    // let Nopath = ['shopcart', 'center', 'center/myorder', 'center/grouporder', 'pay', 'paysuccess', 'addcartsuccess', 'trade']
+    if (to.path.indexOf('shopcart') != -1 ||
+      to.path.indexOf('center') != -1 ||
+      to.path.indexOf('pay') != -1 ||
+      to.path.indexOf('addcartsuccess') != -1 ||
+      to.path.indexOf('trade') != -1 ) {
+        next('/login?redirect='+to.path)
+    }
+    else {
+      next()
+    }
+
+ 
+}
+})
 export default router

@@ -4,20 +4,26 @@
     <div class="top">
       <div class="container">
         <div class="loginList">
-          <p>尚品汇欢迎您！</p>
-          <p>
+          <p>京西欢迎您！</p>
+          <p v-if="!userInfo">
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
           </p>
+          <p v-else>
+            <a
+              ><span>{{ userInfo }}</span></a
+            >
+            <a class="register" @click="logout">退出登录</a>
+          </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
-          <a href="###">我的购物车</a>
-          <a href="###">我的尚品汇</a>
-          <a href="###">尚品汇会员</a>
+          <router-link to="/center/myorder">我的订单</router-link>
+          <router-link to="/shopcart">我的购物车</router-link>
+          <a href="###">我的京西</a>
+          <a href="###">京西会员</a>
           <a href="###">企业采购</a>
-          <a href="###">关注尚品汇</a>
+          <a href="###">关注京西</a>
           <a href="###">合作招商</a>
           <a href="###">商家后台</a>
         </div>
@@ -52,6 +58,8 @@
 </template>
 
 <script>
+import { events } from '@/bus'
+// import { getCurrentInstance } from 'vue'
 export default {
   data() {
     return {
@@ -60,11 +68,44 @@ export default {
   },
   methods: {
     gosearch() {
-      this.$router.push({
+      const location = {
         name: 'search',
-        params: { keyword: this.keywords.trim() },
-        query: { k: this.keywords.toUpperCase().trim() }
-      })
+        params: { keyword: this.keywords.trim() }
+        // query: { query: this.$route.query }
+      }
+      if (this.$route.query) {
+        location.query = this.$route.query
+      }
+      this.$router.push(location)
+    },
+    logout() {
+      try {
+        this.$store.dispatch('Logout')
+        this.$router.push('/home')
+      } catch (error) {
+        alert(error.message)
+      }
+    }
+  },
+  mounted() {
+    events.on('clear', () => {
+      this.keywords = ''
+    }),
+      this.$store.dispatch('reqUserInfo')
+  },
+  created() {
+    const that = this
+    document.onkeyup = function event(e) {
+      // console.log(e)
+      if (e.code == 'Enter') {
+        // console.log(this)
+        that.gosearch()
+      }
+    }
+  },
+  computed: {
+    userInfo() {
+      return this.$store.state.user.userInfo.nickName
     }
   }
 }
@@ -72,6 +113,12 @@ export default {
 
 <style lang="less" scoped>
 .header {
+  a {
+    cursor: pointer;
+  }
+  a:hover {
+    text-decoration: none;
+  }
   & > .top {
     background-color: #eaeaea;
     height: 30px;
